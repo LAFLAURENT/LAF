@@ -1,0 +1,185 @@
+<!-- ////////////////////////////////// -->
+<!-- //////////// STYLE /////////////// -->
+<!-- ////////////////////////////////// -->
+
+<style>
+  @import url("https://fonts.googleapis.com/css?family=Lato:700,900");
+
+  .wrap, #wrap{
+    display: block !important;
+  }
+
+  body {
+    font-family: 'Lato', sans-serif;
+  }
+  
+  #alert-box {
+    width: 100% !important 
+  }
+
+  .wrapper {
+    opacity: 0;
+    display: flex;
+    max-width: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    display: flex;
+    max-width: 600px;
+    width: 100%;
+    height: 80px;
+    position: relative;
+    border: 1px solid rgba(000, 000, 000, 0);
+    background-color: rgba(0,0,0,.1);
+  }
+
+  .left-pane, .right-pane {
+    position: absolute;
+    background: #000000;
+    width: 0;
+    height: 80px;
+  }
+
+  .right-pane {
+    right: 0;
+  }
+
+  .type, .name {
+    font-size: 20px;
+    position: absolute;
+    height: 80px;
+    left: 0;
+    top: 0;
+    width: 600px;
+    color: rgba(255, 255, 255, 0);
+    line-height: 80px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: 6px;
+  }
+
+  .message {
+    padding: 10px 0;
+    font-size: 18px;
+    position: absolute;
+    left: 0;
+    top: 80px;  
+    border-bottom: 1px solid rgba(255, 255, 255, 0);
+    width: 600px;
+    color: rgba(255, 255, 255, 0);
+    line-height: 30px;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background-color: rgba(0,0,0,0.1);
+  }
+</style>
+
+
+<!-- ////////////////////////////////// -->
+<!-- //////////// HTML CODE /////////// -->
+<!-- ////////////////////////////////// -->
+
+<div class="wrapper">
+  <div class="container" id="click">
+    <audio src="{audio}"></audio>
+    <div class="left-pane"></div>
+    <div class="right-pane"></div>
+    <div class="type">
+      Thank you for hosting
+    </div>
+    <div class="name">
+      {name}
+    </div>
+    <div class="message" style="text-transform: uppercase;">
+      with {count} viewers
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+    <script>
+      if (!window.scriptLoaded) {
+        jQuery.getScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js")
+          .done(function() {
+          window.scriptLoaded = true;
+          animate();
+        });
+      } else {
+        animate();
+      }
+
+      var animate = function() {
+        var dEaseIn = Strong.easeOut;
+        var dEaseOut = Strong.easeIn;
+        var first = 0;
+        var second = 4;
+        var third = 12;
+        var speed = .5;
+
+        // First slide [0s]
+
+
+        TweenMax.to('.wrapper',  0, { delay: .1,  opacity: 1 });
+
+        // Container
+        TweenMax.to('.container',  .5, { delay: .5, borderColor: 'rgba(000, 000, 000, 1)', backgroundColor: 'rgba(0,0,0,0.1)' });
+
+        // Left Pane
+        TweenMax.fromTo('.left-pane',  .5, { width: 0, left: 300, ease: dEaseIn },
+                        { width: 300, left: 0 });
+        TweenMax.to('.left-pane',  .5, { delay: .5, width: 0, left: 0, ease: dEaseOut });
+
+        // Right Pane
+        TweenMax.fromTo('.right-pane',  .5, { width: 0, right: 300, ease: dEaseIn },
+                        { width: 300, right: 0 });
+        TweenMax.to('.right-pane',  .5, { delay: .5,  width: 0,  right: 0,  ease: dEaseOut });
+
+        TweenMax.to('.type',  .1, { delay: .5, color: 'rgba(255, 255, 255, 1)' });
+
+        // Second Slide [4s]
+
+        // Left Pane
+        TweenMax.fromTo('.left-pane',  .5, { width: 0, left: 300, ease: dEaseIn },
+                        { delay: 4, width: 300, left: 0 });
+        TweenMax.to('.left-pane',  .5, { delay: 4.5, width: 0, left: 0, ease: dEaseOut });
+
+        // change slides
+        TweenMax.to('.type',  .1, { delay: 4.4, color: 'rgba(255, 255, 255, 0)' });
+        TweenMax.to('.name',  .1, { delay: 4.5, color: 'rgba(255, 255, 255, 1)' });
+
+        // message
+        TweenMax.from('.message', .5, { delay: 4.5, opacity: 0, height: 0 });
+        TweenMax.to('.message', .5, { delay: 4.5, borderColor: 'rgba(000, 000, 000, 1)'});
+        TweenMax.to('.message', .5, { delay: 5, color: 'rgba(255,255,255,1)'});
+
+        // Right Pane
+        TweenMax.fromTo('.right-pane',  .5, { width: 0, right: 300, ease: dEaseIn },
+                        { delay: 4, right: 0, width: 300 });
+        TweenMax.to('.right-pane',  .5, { delay: 4.5,  width: 0,  right: 0,  ease: dEaseOut });
+
+        // Second Slide [12s]
+
+        // Left Pane
+        TweenMax.fromTo('.left-pane',  .5, { width: 0, left: 300, ease: dEaseIn },
+                        { delay: third, width: 300, left: 0 });
+        TweenMax.to('.left-pane',  .5, { delay: third + .5, width: 0, left: 0, ease: dEaseOut });
+
+        // change slides
+        TweenMax.to('.name',  .1, { delay: third + .4, color: 'rgba(255, 255, 255, 0)' });
+        TweenMax.to('.container',  .5, { delay: third + .5, borderColor: 'rgba(255, 255, 255, 0)', backgroundColor: 'rgba(0,0,0,0)' });
+
+        // message
+        TweenMax.to('.message', .5, { delay: third, color: 'rgba(255,255,255,0)'});
+        TweenMax.to('.message', .5, { delay: third + .5, opacity: 0, height: 0 });
+
+        // Right Pane
+        TweenMax.fromTo('.right-pane',  .5, { width: 0, right: 300, ease: dEaseIn },
+                        { delay: third, right: 0, width: 300 });
+        TweenMax.to('.right-pane',  .5, { delay: third + .5,  width: 0,  right: 0,  ease: dEaseOut });  
+      }
+    </script>
+  </div>
+</div>
